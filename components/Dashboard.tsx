@@ -22,18 +22,21 @@ const Dashboard: React.FC<DashboardProps> = ({ onSelectPhase }) => {
       <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
         <CalibrationCard
           phase={CalibrationPhaseEnum.PreLaunch}
+          status="Pre-Launch"
           description="Ground-based testing and sensor verification before mission start."
           icon={<LaunchIcon className="w-12 h-12 text-cyan-400" />}
           onSelect={() => onSelectPhase(CalibrationPhaseEnum.PreLaunch)}
         />
         <CalibrationCard
           phase={CalibrationPhaseEnum.InOrbit}
+          status="Operational"
           description="Ongoing monitoring and adjustment of satellite instruments in space."
           icon={<OrbitIcon className="w-12 h-12 text-cyan-400" />}
           onSelect={() => onSelectPhase(CalibrationPhaseEnum.InOrbit)}
         />
         <CalibrationCard
           phase={CalibrationPhaseEnum.PostOrbit}
+          status="Decommissioned"
           description="Final performance analysis and decommissioning procedures."
           icon={<DecommissionIcon className="w-12 h-12 text-cyan-400" />}
           onSelect={() => onSelectPhase(CalibrationPhaseEnum.PostOrbit)}

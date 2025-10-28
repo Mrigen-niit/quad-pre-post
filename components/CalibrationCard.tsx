@@ -1,5 +1,5 @@
 import React from 'react';
-import type { CalibrationPhase } from '../types';
+import type { CalibrationPhase, Satellite } from '../types';
 import { ArrowRightIcon } from './icons';
 
 interface CalibrationCardProps {
@@ -7,9 +7,16 @@ interface CalibrationCardProps {
   description: string;
   icon: React.ReactNode;
   onSelect: () => void;
+  status: Satellite['status'];
 }
 
-const CalibrationCard: React.FC<CalibrationCardProps> = ({ phase, description, icon, onSelect }) => {
+const CalibrationCard: React.FC<CalibrationCardProps> = ({ phase, description, icon, onSelect, status }) => {
+  const statusStyles: Record<Satellite['status'], string> = {
+    'Operational': 'bg-green-500/20 text-green-400 border-green-500/50',
+    'Pre-Launch': 'bg-yellow-500/20 text-yellow-400 border-yellow-500/50',
+    'Decommissioned': 'bg-red-500/20 text-red-400 border-red-500/50',
+  };
+  
   return (
     <div 
       onClick={onSelect}
@@ -22,7 +29,12 @@ const CalibrationCard: React.FC<CalibrationCardProps> = ({ phase, description, i
         <div className="mb-4 transition-transform duration-300 group-hover:scale-110">
           {icon}
         </div>
-        <h3 className="text-2xl font-orbitron font-bold text-slate-100 mb-2">{phase}</h3>
+        <div className="flex justify-between items-center mb-2">
+          <h3 className="text-2xl font-orbitron font-bold text-slate-100">{phase}</h3>
+          <span className={`px-2 py-0.5 text-xs font-semibold rounded-full border whitespace-nowrap ${statusStyles[status]}`}>
+            {status}
+          </span>
+        </div>
         <p className="text-slate-400 flex-grow">{description}</p>
         <div className="mt-4 text-cyan-400 flex items-center gap-2 font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             Launch Service <ArrowRightIcon className="w-5 h-5" />
